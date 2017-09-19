@@ -8,10 +8,14 @@ const Watcher=function(data,exp,cb){
 }
 
 Watcher.prototype.watch=function(){
+    const exps=this.exp.split('.');
+    let val=this.data;
     // 依赖收集
     Dep.target=this;
+    exps.forEach(key=>{
+        val=val[key];
+    })
     // 通过get收集依赖 因为dep对象存在闭包当中
-    this.data[this.exp];
     Dep.target=null;
 }
 
